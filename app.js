@@ -29,6 +29,7 @@ app.use(express.static(join(__dirname, 'public')))
 // routes
 app.use('/', require('./routes/homeRouter'))
 
+/*
 // Error handler.
 app.use((err, req, res, next) => {
   // 404 Not Found.
@@ -43,6 +44,6 @@ app.use((err, req, res, next) => {
   // Render the error page.
   res.status(err.statusCode || 500).render('errors/error', { err })
 })
-
+*/
 // listen to provided port
 app.listen(3000, () => console.log('Server running at http://localhost:3000'))
