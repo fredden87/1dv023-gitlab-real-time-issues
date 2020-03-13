@@ -1,5 +1,5 @@
 /**
- * Home controller.
+ * Controller.
  *
  * @author Fredrik Norrman
  * @version 1.0.0
@@ -7,7 +7,7 @@
 
 'use strict'
 
-const homeController = {}
+const controller = {}
 const fetch = require('node-fetch')
 const moment = require('moment')
 require('dotenv').config()
@@ -23,7 +23,7 @@ private_token=${process.env.ACCESS_TOKEN}`
  * @param {object} res - Express response object.
  */
 
-homeController.index = async (req, res) => {
+controller.index = async (req, res) => {
   try {
     const request = await fetch(url)
     const json = await request.json()
@@ -47,4 +47,4 @@ homeController.index = async (req, res) => {
 }
 
 // Exporting module
-module.exports = homeController
+module.exports = controller

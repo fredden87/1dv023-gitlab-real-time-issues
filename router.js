@@ -1,5 +1,5 @@
 /**
- * Home routes.
+ * Router.
  *
  * @author Fredrik Norrman
  * @version 1.0.0
@@ -10,7 +10,7 @@
 const express = require('express')
 const router = express.Router()
 
-const controller = require('../controllers/homeController')
+const controller = require('./controller')
 
 // Map HTTP verbs and route paths to controller actions.
 router.get('/', controller.index)

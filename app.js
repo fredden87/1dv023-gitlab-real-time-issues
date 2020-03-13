@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.static(join(__dirname, 'public')))
 
 // routes
-app.use('/', require('./routes/homeRouter'))
+app.use('/', require('./router'))
 
 /*
 // Error handler.
