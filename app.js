@@ -38,7 +38,12 @@ app.use(bodyParser.json())
 // routes
 app.use('/', router)
 // Webhook route, receives events from GitLab webhook.
-app.use('/event', router)
+app.use('/event', router, async (req, res) => {
+  io.on('connection', function (socket) {
+    console.log(`Socket ${socket.id} connected.`)
+    socket.broadcast.emit('broadcast', res.locals.event)
+  })
+})
 
 /*
 // Error handler.

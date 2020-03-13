@@ -52,18 +52,23 @@ controller.index = async (req, res) => {
  *
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
+ * @param {object} next - Express forward object.
  */
-controller.webhook = async (req, res) => {
+controller.webhook = async (req, res, next) => {
   const secretToken = req.headers['x-gitlab-token']
   let event = {}
   if (secretToken === process.env.SECRET_TOKEN) {
     if (req.body.event_type === 'issue') {
       event = createIssueObject(req.body)
+      res.locals.event = event
+      return next()
     } else if (req.body.event_type === 'note') {
       event = createNoteObject(req.body)
+      res.locals.event = event
+      return next()
     }
-    console.log(event)
-    res.sendStatus(200)
+    // console.log(event)
+    // res.sendStatus(200)
   }
 }
 
