@@ -9,6 +9,7 @@ ul {
     padding: 0;
     list-style-type: none;
 }
+
 h3{
     text-decoration: underline;
 }
@@ -22,7 +23,7 @@ h3{
     grid-template-columns: repeat(2, 1fr);
     padding-left: 10px;
     padding-right: 10px;
-    text-align: center;
+    
 }
 .grid-item{
     height: 100%;  
