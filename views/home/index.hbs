@@ -5,7 +5,7 @@
     <ul id="issues" class="grid-item">
       {{#if viewData.issues.length}}
       {{#each viewData.issues}}
-      <li><div data-issue-id="{{this.id}}" class="issue-card">
+      <div data-issue-id="{{this.id}}" class="issue-card">
           <div id="issue-card-head">{{this.title}}</div>
           <ul id="issue-card-ul">
               <li id="author">Author/Username: {{this.author}}/{{this.username}}</li>
@@ -16,7 +16,6 @@
               <li id="updated-at">Updated: {{this.updatedAt}}</li>
           </ul>
       </div>
-      </li>
       {{/each}}
       {{else}}
       <li>No issues reported.</li>
