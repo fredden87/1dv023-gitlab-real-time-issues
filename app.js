@@ -12,6 +12,7 @@ const hbs = require('express-hbs')
 const { join } = require('path')
 const logger = require('morgan')
 const app = express()
+const router = require('./router')
 
 // view engine setup
 app.engine('hbs', hbs.express4({
@@ -26,7 +27,8 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.static(join(__dirname, 'public')))
 
 // routes
-app.use('/', require('./router'))
+app.use('/', router)
+app.use('/event', router)
 
 /*
 // Error handler.

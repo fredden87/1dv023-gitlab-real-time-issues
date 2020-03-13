@@ -46,5 +46,9 @@ controller.index = async (req, res) => {
   }
 }
 
+controller.webhook = async (req, res) => {
+  console.log(req)
+}
+
 // Exporting module
 module.exports = controller
