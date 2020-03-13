@@ -8,6 +8,7 @@
 'use strict'
 
 const homeController = {}
+const fetch = require('node-fetch')
 
 /**
  * Renders the start page.
@@ -16,7 +17,7 @@ const homeController = {}
  * @param {object} res - Express response object.
  */
 
-homeController.index = (req, res) => {
+homeController.index = async (req, res) => {
   res.render('home/index')
 }
 
