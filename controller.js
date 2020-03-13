@@ -26,9 +26,9 @@ private_token=${process.env.ACCESS_TOKEN}`
 controller.index = async (req, res) => {
   try {
     const request = await fetch(url)
-    const json = await request.json()
+    const issues = await request.json()
     const viewData = {
-      issues: json.map(issue => ({
+      issues: issues.map(issue => ({
         author: issue.author.name,
         username: issue.author.username,
         title: issue.title,

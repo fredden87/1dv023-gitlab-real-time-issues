@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Real-time issues</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <script src="/js/script.js" defer></script>
+    <script type="module" src="/js/script.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+    </script>
 </head>
+
 <body>
-    <template id="issue-template"><li><div class="issue-card">
-          <div id="issue-card-head"></div>
-          <ul id="issue-card-ul">
-              <li id="author"></li>
-              <li id="description"></li>
-              <li id="url"></li>
-              <li id="comments"></li>
-              <li id="created-at"></li>
-              <li id="updated-at"></li>
-          </ul>
-      </div>
-      </li></template>
+    <template id="issue-template">
+        <li>
+            <div class="issue-card">
+                <div id="issue-card-head"></div>
+                <ul id="issue-card-ul">
+                    <li id="author"></li>
+                    <li id="description"></li>
+                    <li id="url"></li>
+                    <li id="comments"></li>
+                    <li id="created-at"></li>
+                    <li id="updated-at"></li>
+                </ul>
+            </div>
+        </li>
+    </template>
     <div id="container">
         {{{body}}}
     </div>
 </body>
+
 </html>

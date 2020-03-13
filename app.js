@@ -14,6 +14,13 @@ const logger = require('morgan')
 const app = express()
 const bodyParser = require('body-parser')
 const router = require('./router')
+const server = require('http').Server(app)
+
+// Starts a websocket server
+const io = require('socket.io')(server)
+io.on('connection', function (socket) {
+  console.log(`Socket ${socket.id} connected.`)
+})
 
 // view engine setup
 app.engine('hbs', hbs.express4({
@@ -49,5 +56,6 @@ app.use((err, req, res, next) => {
   res.status(err.statusCode || 500).render('errors/error', { err })
 })
 */
-// listen to provided port
-app.listen(3000, () => console.log('Server running at http://localhost:3000'))
+// Starts the server.
+server.listen(process.env.PORT || 3000, () =>
+  console.log(`Server running at http://localhost:${process.env.PORT || 3000}`))
