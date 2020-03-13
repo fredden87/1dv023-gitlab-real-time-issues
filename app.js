@@ -19,6 +19,7 @@ const server = require('http').Server(app)
 // Starts a websocket server
 const io = require('socket.io')(server)
 io.on('connection', function (socket) {
+  io.emit('message', `Welcome! id: ${socket.id}`)
   console.log(`Socket ${socket.id} connected.`)
 })
 
@@ -39,10 +40,7 @@ app.use(bodyParser.json())
 app.use('/', router)
 // Webhook route, receives events from GitLab webhook.
 app.use('/event', router, async (req, res) => {
-  io.on('connection', function (socket) {
-    console.log(`Socket ${socket.id} connected.`)
-    socket.broadcast.emit('broadcast', res.locals.event)
-  })
+  io.emit('message', res.locals.event)
 })
 
 /*
