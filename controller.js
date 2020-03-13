@@ -34,6 +34,7 @@ controller.index = async (req, res) => {
         title: issue.title,
         description: issue.description,
         url: issue.web_url,
+        id: issue.id,
         comments: issue.user_notes_count,
         createdAt: moment(issue.created_at).format('YYYY-MM-DD HH:mm'),
         updatedAt: moment(issue.updated_at).format('YYYY-MM-DD HH:mm')
@@ -68,8 +69,8 @@ controller.webhook = async (req, res) => {
 
 /** Creates an IssueObject and returns it.
  *
- * @param issue Data to make a IssueObject from webhook.
- * @returns IssueObject.
+ * @param {object} issue Data to make a IssueObject from webhook.
+ * @returns {object} IssueObject.
  */
 function createIssueObject (issue) {
   return {
@@ -78,27 +79,29 @@ function createIssueObject (issue) {
     title: issue.object_attributes.title,
     description: issue.object_attributes.description,
     url: issue.object_attributes.url,
+    id: issue.object_attributes.id,
     eventType: issue.event_type,
     state: issue.object_attributes.state,
-    createdAt: moment(issue.object_attributes.created_at).format('YYYY-MM-DD HH:mm'),
-    updatedAt: moment(issue.object_attributes.updated_at).format('YYYY-MM-DD HH:mm')
+    createdAt: moment(issue.object_attributes.created_at.replace(' +0100', ''))
+      .format('YYYY-MM-DD HH:mm'),
+    updatedAt: moment(issue.object_attributes.updated_at.replace(' +0100', ''))
+      .format('YYYY-MM-DD HH:mm')
   }
 }
 
 /** Creates an NoteObject and returns it.
  *
- * @param note Data to make a NoteObject from webhook.
- * @returns Type NoteObject.
+ * @param {object} note Data to make a NoteObject from webhook.
+ * @returns {object} NoteObject.
  */
 function createNoteObject (note) {
   return {
     author: note.user.name,
     username: note.user.username,
-    title: note.object_attributes.title,
     description: note.object_attributes.description,
     url: note.object_attributes.url,
+    id: note.issue.id,
     eventType: note.event_type,
-    state: note.object_attributes.state,
     createdAt: moment.utc(note.object_attributes.created_at.replace(' UTC', ''))
       .local().format('YYYY-MM-DD HH:mm'),
     updatedAt: moment.utc(note.object_attributes.updated_at.replace(' UTC', ''))
