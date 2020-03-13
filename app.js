@@ -18,25 +18,21 @@ const server = require('http').Server(app)
 
 // Starts a websocket server
 const io = require('socket.io')(server)
-io.on('connection', function (socket) {
-  io.emit('message', `Welcome! id: ${socket.id}`)
-  console.log(`Socket ${socket.id} connected.`)
-})
 
-// view engine setup
+// View engine setup
 app.engine('hbs', hbs.express4({
   defaultLayout: join(__dirname, 'views', 'layouts', 'default')
 }))
 app.set('view engine', 'hbs')
 app.set('views', join(__dirname, 'views'))
 
-// additional middleware
+// Additional middleware
 app.use(logger('dev'))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(join(__dirname, 'public')))
 app.use(bodyParser.json())
 
-// routes
+// Routes
 app.use('/', router)
 // Webhook route, receives events from GitLab webhook.
 app.use('/event', router, async (req, res) => {
