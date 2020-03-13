@@ -36,9 +36,10 @@ h3{
 }
 
 .issue-card {
-    width: 35%;
+    width: 60%;
     border: 1px solid black;
     background-color: white;
+    margin-bottom: 5px;
 }
 
 #issue-card-head {

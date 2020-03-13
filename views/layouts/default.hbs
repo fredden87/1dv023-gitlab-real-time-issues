@@ -8,6 +8,18 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+    <template id="issue-template"><li><div class="issue-card">
+          <div id="issue-card-head"></div>
+          <ul id="issue-card-ul">
+              <li id="author"></li>
+              <li id="description"></li>
+              <li id="url"></li>
+              <li id="comments"></li>
+              <li id="created-at"></li>
+              <li id="updated-at"></li>
+          </ul>
+      </div>
+      </li></template>
     <div id="container">
         {{{body}}}
     </div>
