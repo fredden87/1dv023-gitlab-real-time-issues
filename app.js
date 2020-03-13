@@ -12,7 +12,7 @@ const hbs = require('express-hbs')
 const { join } = require('path')
 const logger = require('morgan')
 const app = express()
-const router = require('./router')
+const bodyParser = require('body-parser')
 
 // view engine setup
 app.engine('hbs', hbs.express4({
@@ -25,10 +25,18 @@ app.set('views', join(__dirname, 'views'))
 app.use(logger('dev'))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(join(__dirname, 'public')))
+app.use(bodyParser.json())
 
 // routes
-app.use('/', router)
-app.use('/event', router)
+app.use('/', require('./router'))
+// Webhook route, receives events from GitLab webhook.
+app.use('/event', async (req, res) => {
+  const secretToken = req.headers['x-gitlab-token']
+  if (secretToken === process.env.SECRET_TOKEN) {
+    console.log(req.body)
+    res.sendStatus(200)
+  }
+})
 
 /*
 // Error handler.

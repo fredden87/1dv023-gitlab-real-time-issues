@@ -17,7 +17,7 @@ const url = `https://gitlab.lnu.se/api/v4/projects/2651/issues?state=opened&\
 private_token=${process.env.ACCESS_TOKEN}`
 
 /**
- * Fetching all known issues and rendering the index page.
+ * Index route, fetching all open issues and render the result.
  *
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
@@ -44,10 +44,6 @@ controller.index = async (req, res) => {
     console.error(error)
     res.render('home/index')
   }
-}
-
-controller.webhook = async (req, res) => {
-  console.log(req)
 }
 
 // Exporting module
