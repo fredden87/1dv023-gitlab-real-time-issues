@@ -27,7 +27,8 @@ h3{
 }
 
 .grid-item{
-    height: 100%;  
+    height: 100%;
+    margin: 5px 0 5px 0;
 }
 
 .grid-item:nth-child(2n){
@@ -40,7 +41,7 @@ h3{
     border-radius: 3px;
     border: 1px solid black;
     background-color: white;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 }
 
 #issue-card-head {
