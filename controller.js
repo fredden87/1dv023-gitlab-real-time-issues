@@ -46,5 +46,65 @@ controller.index = async (req, res) => {
   }
 }
 
+/**
+ * Webhook route, receives events from GitLab webhook.
+ *
+ * @param {object} req - Express request object.
+ * @param {object} res - Express response object.
+ */
+controller.webhook = async (req, res) => {
+  const secretToken = req.headers['x-gitlab-token']
+  let event = {}
+  if (secretToken === process.env.SECRET_TOKEN) {
+    if (req.body.event_type === 'issue') {
+      event = createIssueObject(req.body)
+    } else if (req.body.event_type === 'note') {
+      event = createNoteObject(req.body)
+    }
+    console.log(event)
+    res.sendStatus(200)
+  }
+}
+
+/** Creates an IssueObject and returns it.
+ *
+ * @param issue Data to make a IssueObject from webhook.
+ * @returns IssueObject.
+ */
+function createIssueObject (issue) {
+  return {
+    author: issue.user.name,
+    username: issue.user.username,
+    title: issue.object_attributes.title,
+    description: issue.object_attributes.description,
+    url: issue.object_attributes.url,
+    eventType: issue.event_type,
+    state: issue.object_attributes.state,
+    createdAt: moment(issue.object_attributes.created_at).format('YYYY-MM-DD HH:mm'),
+    updatedAt: moment(issue.object_attributes.updated_at).format('YYYY-MM-DD HH:mm')
+  }
+}
+
+/** Creates an NoteObject and returns it.
+ *
+ * @param note Data to make a NoteObject from webhook.
+ * @returns Type NoteObject.
+ */
+function createNoteObject (note) {
+  return {
+    author: note.user.name,
+    username: note.user.username,
+    title: note.object_attributes.title,
+    description: note.object_attributes.description,
+    url: note.object_attributes.url,
+    eventType: note.event_type,
+    state: note.object_attributes.state,
+    createdAt: moment.utc(note.object_attributes.created_at.replace(' UTC', ''))
+      .local().format('YYYY-MM-DD HH:mm'),
+    updatedAt: moment.utc(note.object_attributes.updated_at.replace(' UTC', ''))
+      .local().format('YYYY-MM-DD HH:mm')
+  }
+}
+
 // Exporting module
 module.exports = controller
