@@ -25,11 +25,33 @@ h3{
     padding-right: 10px;
     
 }
+
 .grid-item{
     height: 100%;  
 }
+
 .grid-item:nth-child(2n){
     border-left: 2px solid black;
     padding-left: 5px;
 }
+
+.issue-card {
+    width: 35%;
+    border: 1px solid black;
+    background-color: white;
+}
+
+#issue-card-head {
+    color: white;
+    padding: 3px;
+    background-color: rgb(22, 72, 223);
+    
+}
+
+.issue-card li {
+    padding-left: 5px;
+    margin-top: 2px;
+    overflow-wrap: break-word;
+}
+
 
