@@ -67,8 +67,7 @@ controller.webhook = async (req, res, next) => {
       res.locals.event = event
       return next()
     }
-    // console.log(event)
-    // res.sendStatus(200)
+    return res.sendStatus(500)
   }
 }
 

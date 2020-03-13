@@ -4,8 +4,8 @@ const issueNodeList = issue.querySelectorAll('*')
 // console.log(issue)
 
 // Listening to event 'message', server will send data here from webhook.
-io.on('message', function (message) {
-  console.log(message)
+io.on('webhook-event', function (event) {
+  console.log(event)
 })
 
 // document.querySelector('#issues').prepend(issue)

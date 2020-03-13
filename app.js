@@ -40,7 +40,8 @@ app.use(bodyParser.json())
 app.use('/', router)
 // Webhook route, receives events from GitLab webhook.
 app.use('/event', router, async (req, res) => {
-  io.emit('message', res.locals.event)
+  io.emit('webhook-event', res.locals.event)
+  res.sendStatus(200)
 })
 
 /*
