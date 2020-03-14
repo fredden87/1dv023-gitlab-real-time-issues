@@ -7,7 +7,7 @@
     <ul id="issues" class="grid-item">
         {{#if viewData.issues.length}}
         {{#each viewData.issues}}
-        <li>
+        <li id="issue">
             <div data-issue-id="{{this.id}}" class="issue-card">
                 <div id="issue-card-head">{{this.title}}</div>
                 <ul id="issue-card-ul">

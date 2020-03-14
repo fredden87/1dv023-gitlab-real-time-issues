@@ -3,6 +3,9 @@ const io = window.io('/')
 // Listening to event 'webhook-event', server will send data here from webhook.
 io.on('webhook-event', function (event) {
   if (event.eventType === 'issue') {
+    if (event.state === 'closed') {
+      removeIssueCard(event)
+    }
     createIssueCard(event)
   } else if (event.eventType === 'note') {
     // console.log(event)
@@ -15,22 +18,20 @@ io.on('webhook-event', function (event) {
  */
 function createIssueCard (issueData) {
   const issueDataArr = Object.values(issueData)
-  const template = document.getElementsByTagName('template')[0]
-  console.log(template)
-  const content = template.content.querySelectorAll('div, ul, li')
-  // document.querySelector('#issues').prepend(content)
-  console.log('hej', document.getElementById('issues'))
-  console.log(content)
-  const issueCard = document.querySelector('.issue-card').querySelectorAll('div, ul, li')
-  console.log(issueCard)
-  content.forEach((elem, i) => {
-    console.log(elem)
-    elem.textContent = issueDataArr[i]
+  const template = document.cloneNode(true).querySelector('#issue-template').content
+  const html = template.querySelector('li, ul, div')
+  document.querySelector('#issues').prepend(html)
+  const nodeList = document.querySelector('#issues').firstChild.querySelectorAll('*')
+  nodeList.forEach((elem, i) => {
+    if (i >= 0) {
+      elem.appendChild(document.createTextNode(issueDataArr[i]))
+    }
   })
 }
-/**
- * @param noteData
- */
-function createNotificationCard (noteData) {
 
+/**
+ * @param issueData
+ */
+function removeIssueCard (issueData) {
+  console.log('remove', issueData)
 }
