@@ -1,27 +1,32 @@
-<div class="center-text"><h1>Real-time issues</h1></div>
+<div class="center-text">
+    <h1>Real-time issues</h1>
+</div>
 <div class="grid">
     <h3 class="grid-item">All issues</h3>
     <h3 class="grid-item">Notifications</h3>
     <ul id="issues" class="grid-item">
-      {{#if viewData.issues.length}}
-      {{#each viewData.issues}}
-      <div data-issue-id="{{this.id}}" class="issue-card">
-          <div id="issue-card-head">{{this.title}}</div>
-          <ul id="issue-card-ul">
-              <li id="author">Author/Username: {{this.author}}/{{this.username}}</li>
-              <li id="description">Description: {{this.description}}</li>
-              <li id="url">Url: <a href="{{this.url}}" target="_blank">{{this.url}}</a></li>
-              <li id="comments">Comments: {{this.comments}}</li>
-              <li id="created-at">Created: {{this.createdAt}}</li>
-              <li id="updated-at">Updated: {{this.updatedAt}}</li>
-          </ul>
-      </div>
-      {{/each}}
-      {{else}}
-      <li>No issues reported.</li>
-  </ul>
-<ul id="notifications" class="grid-item">
-      <li>1</li>
-      <li>1</li>
-  </ul></div>
+        {{#if viewData.issues.length}}
+        {{#each viewData.issues}}
+        <li>
+            <div data-issue-id="{{this.id}}" class="issue-card">
+                <div id="issue-card-head">{{this.title}}</div>
+                <ul id="issue-card-ul">
+                    <li id="author">Author/Username: {{this.author}}/{{this.username}}</li>
+                    <li id="description">Description: {{this.description}}</li>
+                    <li id="url">Url: <a href="{{this.url}}" target="_blank">{{this.url}}</a></li>
+                    <li id="comments">Comments: {{this.comments}}</li>
+                    <li id="created-at">Created: {{this.createdAt}}</li>
+                    <li id="updated-at">Updated: {{this.updatedAt}}</li>
+                </ul>
+            </div>
+        </li>
+        {{/each}}
+        {{else}}
+        <li>No issues reported.</li>
+    </ul>
+    <ul id="notifications" class="grid-item">
+        <li>1</li>
+        <li>1</li>
+    </ul>
+</div>
 {{/if}}

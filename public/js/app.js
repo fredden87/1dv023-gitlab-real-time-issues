@@ -1,6 +1,4 @@
 const io = window.io('/')
-HTMLCollection.prototype.forEach = Array.prototype.forEach,
-NodeList.prototype.forEach = Array.prototype.forEach
 
 // Listening to event 'webhook-event', server will send data here from webhook.
 io.on('webhook-event', function (event) {
@@ -17,16 +15,19 @@ io.on('webhook-event', function (event) {
  */
 function createIssueCard (issueData) {
   const issueDataArr = Object.values(issueData)
-  const template = document.querySelector('template').cloneNode(true)
-  const clone = template.content.cloneNode(true).querySelectorAll('*')
+  const template = document.getElementsByTagName('template')[0]
   console.log(template)
-  console.log(clone)
-  const reverse = Array.from(clone).reverse()
-  reverse.forEach((elem, i) => {
-    document.querySelector('#issues').prepend(elem)
+  const content = template.content.querySelectorAll('div, ul, li')
+  // document.querySelector('#issues').prepend(content)
+  console.log('hej', document.getElementById('issues'))
+  console.log(content)
+  const issueCard = document.querySelector('.issue-card').querySelectorAll('div, ul, li')
+  console.log(issueCard)
+  content.forEach((elem, i) => {
+    console.log(elem)
+    elem.textContent = issueDataArr[i]
   })
 }
-
 /**
  * @param noteData
  */

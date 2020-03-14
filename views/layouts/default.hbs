@@ -13,17 +13,19 @@
 
 <body>
     <template id="issue-template">
+        <li>
             <div data-issue-id="" class="issue-card">
-                <div id="issue-card-head"></div>
+                <div id="issue-card-head">{{this.title}}</div>
                 <ul id="issue-card-ul">
-                    <li id="author"></li>
-                    <li id="description"></li>
-                    <li id="url"></li>
-                    <li id="comments"></li>
-                    <li id="created-at"></li>
-                    <li id="updated-at"></li>
+                    <li id="author">Author/Username: </li>
+                    <li id="description">Description: </li>
+                    <li id="url">Url: <a href="" target="_blank">{{this.url}}</a></li>
+                    <li id="comments">Comments: </li>
+                    <li id="created-at">Created: </li>
+                    <li id="updated-at">Updated: </li>
                 </ul>
             </div>
+        </li>
     </template>
     <div id="container">
         {{{body}}}
