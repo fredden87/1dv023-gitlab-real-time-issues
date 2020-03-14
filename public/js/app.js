@@ -1,4 +1,6 @@
 const io = window.io('/')
+HTMLCollection.prototype.forEach = Array.prototype.forEach,
+NodeList.prototype.forEach = Array.prototype.forEach
 
 // Listening to event 'webhook-event', server will send data here from webhook.
 io.on('webhook-event', function (event) {
@@ -15,14 +17,14 @@ io.on('webhook-event', function (event) {
  */
 function createIssueCard (issueData) {
   const issueDataArr = Object.values(issueData)
-  const issueCard = document.querySelector('#issue-template').content
-    .cloneNode(true).firstElementChild
-
-  issueCard.forEach(element => {
-    console.log(element)
+  const template = document.querySelector('template').cloneNode(true)
+  const clone = template.content.cloneNode(true).querySelectorAll('*')
+  console.log(template)
+  console.log(clone)
+  const reverse = Array.from(clone).reverse()
+  reverse.forEach((elem, i) => {
+    document.querySelector('#issues').prepend(elem)
   })
-
-  document.querySelector('#issues').prepend(issueCard)
 }
 
 /**
@@ -30,18 +32,4 @@ function createIssueCard (issueData) {
  */
 function createNotificationCard (noteData) {
 
-}
-
-/**
- * @param elements
- * @param elem
- */
-function getChildAndSiblings (elements) {
-  for (const element of elements) {
-    if (element.nextChild) {
-      console.log(element.nextChild)
-    } else if (element.nextSibling) {
-      console.log(element.nextSibling.previousElementSibling)
-    }
-  }
 }
