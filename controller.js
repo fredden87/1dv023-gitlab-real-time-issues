@@ -58,6 +58,7 @@ controller.index = async (req, res) => {
  * @param {object} next - Express forward object.
  */
 controller.webhook = async (req, res, next) => {
+  console.log(req.body)
   const secretToken = req.headers['x-gitlab-token']
   let event = {}
   if (secretToken === process.env.SECRET_TOKEN) {
@@ -80,6 +81,10 @@ controller.webhook = async (req, res, next) => {
  * @returns {object} IssueObject.
  */
 function createIssueObject (issue) {
+  if (!issue.changes.description) {
+    issue.changes.description = {}
+    issue.changes.description.current = null
+  }
   return {
     id: issue.object_attributes.id,
     title: issue.object_attributes.title,
@@ -92,7 +97,8 @@ function createIssueObject (issue) {
     updatedAt: moment(issue.object_attributes.updated_at.replace(' +0100', ''))
       .format('YYYY-MM-DD HH:mm'),
     state: issue.object_attributes.state,
-    eventType: issue.event_type
+    eventType: issue.event_type,
+    newDescription: issue.changes.description.current
   }
 }
 
@@ -102,7 +108,6 @@ function createIssueObject (issue) {
  * @returns {object} NoteObject.
  */
 function createNoteObject (note) {
-  console.log(note)
   return {
     author: note.user.name,
     username: note.user.username,

@@ -2,14 +2,17 @@ const io = window.io('/')
 
 // Listening to event 'webhook-event', and send data to the right function.
 io.on('webhook-event', function (event) {
+  console.log(event)
   if (event.eventType === 'issue') {
     if (event.state === 'closed') {
       removeIssueCard(event)
-      return
+    } else if (event.newDescription) {
+      updateIssueCardDescription(event)
+    } else {
+      createIssueCard(event)
     }
-    createIssueCard(event)
   } else if (event.eventType === 'note') {
-    updateIssueCard(event)
+    updateIssueCardComments(event)
   }
 })
 
@@ -52,7 +55,7 @@ function removeIssueCard (issueData) {
  *
  * @param {object} issueData Containing update data about the issue.
  */
-function updateIssueCard (issueData) {
+function updateIssueCardComments (issueData) {
   const issueCard = document.querySelector(`[data-issue-id="${issueData.id}"]`)
   const issueCardHead = issueCard.querySelector('.issue-card-head')
   const comments = issueCard.querySelector('#comments')
@@ -60,6 +63,22 @@ function updateIssueCard (issueData) {
   const commentText = comments.textContent
   const newCommentsNumber = Number(commentText.slice(-1)) + 1
   comments.textContent = `Comments: ${newCommentsNumber}`
+  updated.textContent = `Updated: ${issueData.updatedAt}`
+  issueCardHead.classList.add('issue-card-head-updated')
+  setTimeout(() => {
+    issueCardHead.classList.remove('issue-card-head-updated')
+  }, 3000)
+}
+
+/**
+ * @param issueData
+ */
+function updateIssueCardDescription (issueData) {
+  const issueCard = document.querySelector(`[data-issue-id="${issueData.id}"]`)
+  const issueCardHead = issueCard.querySelector('.issue-card-head')
+  const description = issueCard.querySelector('#description')
+  const updated = issueCard.querySelector('#updated-at')
+  description.textContent = `Description: ${issueData.newDescription}`
   updated.textContent = `Updated: ${issueData.updatedAt}`
   issueCardHead.classList.add('issue-card-head-updated')
   setTimeout(() => {
