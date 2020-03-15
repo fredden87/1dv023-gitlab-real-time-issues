@@ -78,18 +78,17 @@ controller.webhook = async (req, res, next) => {
  */
 function createIssueObject (issue) {
   return {
-    author: issue.user.name,
-    username: issue.user.username,
     title: issue.object_attributes.title,
+    author: `${issue.user.name}/${issue.user.username}`,
     description: issue.object_attributes.description,
     url: issue.object_attributes.url,
-    id: issue.object_attributes.id,
-    eventType: issue.event_type,
     state: issue.object_attributes.state,
     createdAt: moment(issue.object_attributes.created_at.replace(' +0100', ''))
       .format('YYYY-MM-DD HH:mm'),
     updatedAt: moment(issue.object_attributes.updated_at.replace(' +0100', ''))
-      .format('YYYY-MM-DD HH:mm')
+      .format('YYYY-MM-DD HH:mm'),
+    eventType: issue.event_type,
+    id: issue.object_attributes.id
   }
 }
 
