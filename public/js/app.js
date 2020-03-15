@@ -9,6 +9,7 @@ io.on('webhook-event', function (event) {
     }
     createIssueCard(event)
   } else if (event.eventType === 'note') {
+    updateIssueCard(event)
   }
 })
 
@@ -43,6 +44,22 @@ function createIssueCard (issueData) {
  */
 function removeIssueCard (issueData) {
   document.querySelectorAll(`[data-issue-id="${issueData.id}"]`).forEach(el => el.remove())
+}
+
+/**
+ * Updates an issuecard with new amount of comments, and when is was updated.
+ *
+ * @param {object} issueData Containing update data about the issue.
+ */
+function updateIssueCard (issueData) {
+  console.log(issueData)
+  const issueCard = document.querySelector(`[data-issue-id="${issueData.id}"]`)
+  const comments = issueCard.querySelector('#comments')
+  const updated = issueCard.querySelector('#updated-at')
+  const commentText = comments.textContent
+  const newCommentsNumber = Number(commentText.slice(-1)) + 1
+  comments.textContent = `Comments: ${newCommentsNumber}`
+  updated.textContent = `Updated: ${issueData.updatedAt}`
 }
 
 /**

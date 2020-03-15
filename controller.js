@@ -76,7 +76,6 @@ controller.webhook = async (req, res, next) => {
  * @returns {object} IssueObject.
  */
 function createIssueObject (issue) {
-  console.log(issue)
   return {
     id: issue.object_attributes.id,
     title: issue.object_attributes.title,
@@ -99,6 +98,7 @@ function createIssueObject (issue) {
  * @returns {object} NoteObject.
  */
 function createNoteObject (note) {
+  console.log(note)
   return {
     author: note.user.name,
     username: note.user.username,
