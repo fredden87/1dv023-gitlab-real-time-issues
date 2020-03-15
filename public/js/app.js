@@ -2,7 +2,6 @@ const io = window.io('/')
 
 // Listening to event 'webhook-event', and send data to the right function.
 io.on('webhook-event', function (event) {
-  console.log(event)
   if (event.eventType === 'issue') {
     if (event.state === 'closed') {
       removeIssueCard(event)
@@ -41,6 +40,13 @@ function createIssueCard (issueData) {
 }
 
 /**
+ *
+ */
+function createNotification () {
+
+}
+
+/**
  * Removes a issue from the issue list.
  *
  * @param {object} issueData Containing data about the issue.
@@ -53,17 +59,17 @@ function removeIssueCard (issueData) {
  * Updates an issuecard with new amount of comments, and when is was updated.
  * And changes the issuecard head to green for 3 sec to show what card was updated.
  *
- * @param {object} issueData Containing update data about the issue.
+ * @param {object} noteData Containing update data about the issue.
  */
-function updateIssueCardComments (issueData) {
-  const issueCard = document.querySelector(`[data-issue-id="${issueData.id}"]`)
+function updateIssueCardComments (noteData) {
+  const issueCard = document.querySelector(`[data-issue-id="${noteData.id}"]`)
   const issueCardHead = issueCard.querySelector('.issue-card-head')
   const comments = issueCard.querySelector('#comments')
   const updated = issueCard.querySelector('#updated-at')
   const commentText = comments.textContent
   const newCommentsNumber = Number(commentText.slice(-1)) + 1
   comments.textContent = `Comments: ${newCommentsNumber}`
-  updated.textContent = `Updated: ${issueData.updatedAt}`
+  updated.textContent = `Updated: ${noteData.updatedAt}`
   issueCardHead.classList.add('issue-card-head-updated')
   setTimeout(() => {
     issueCardHead.classList.remove('issue-card-head-updated')
