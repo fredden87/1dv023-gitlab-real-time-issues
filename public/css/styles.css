@@ -44,11 +44,16 @@ h3{
     margin-bottom: 8px;
 }
 
-#issue-card-head {
+.issue-card-head {
     color: white;
     padding: 3px;
     background-color: rgb(22, 72, 223);
     
+}
+
+.issue-card-head-updated {
+    color: black;
+    background-color: rgb(0, 255, 0);
 }
 
 .issue-card li {

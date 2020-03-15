@@ -48,18 +48,23 @@ function removeIssueCard (issueData) {
 
 /**
  * Updates an issuecard with new amount of comments, and when is was updated.
+ * And changes the issuecard head to green for 3 sec to show what card was updated.
  *
  * @param {object} issueData Containing update data about the issue.
  */
 function updateIssueCard (issueData) {
-  console.log(issueData)
   const issueCard = document.querySelector(`[data-issue-id="${issueData.id}"]`)
+  const issueCardHead = issueCard.querySelector('.issue-card-head')
   const comments = issueCard.querySelector('#comments')
   const updated = issueCard.querySelector('#updated-at')
   const commentText = comments.textContent
   const newCommentsNumber = Number(commentText.slice(-1)) + 1
   comments.textContent = `Comments: ${newCommentsNumber}`
   updated.textContent = `Updated: ${issueData.updatedAt}`
+  issueCardHead.classList.add('issue-card-head-updated')
+  setTimeout(() => {
+    issueCardHead.classList.remove('issue-card-head-updated')
+  }, 3000)
 }
 
 /**
