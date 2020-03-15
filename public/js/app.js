@@ -2,7 +2,6 @@ const io = window.io('/')
 
 // Listening to event 'webhook-event', server will send data here from webhook.
 io.on('webhook-event', function (event) {
-  console.log(event)
   if (event.eventType === 'issue') {
     if (event.state === 'closed') {
       removeIssueCard(event)
@@ -26,28 +25,32 @@ function createIssueCard (issueData) {
   const nodeArray = spliceArray(Array.from(document.querySelector('#issues')
     .firstChild.querySelectorAll('*')))
   nodeArray.forEach((elem, i) => {
-    elem.appendChild(document.createTextNode(issueDataArr[i]))
-    console.log(i, elem)
-    if (i === 3) {
+    if (i === 0) {
+      elem.setAttribute('data-issue-id', issueDataArr[i])
+    } else if (i === 4) {
       elem.setAttribute('href', issueDataArr[i])
+      elem.appendChild(document.createTextNode(issueDataArr[i]))
+    } else {
+      elem.appendChild(document.createTextNode(issueDataArr[i]))
     }
   })
-  console.log(issueDataArr)
 }
 
 /**
  * @param issueData
  */
 function removeIssueCard (issueData) {
-  console.log('remove', issueData)
+  console.log(document.querySelectorAll('#issues'))
 }
 
 /**
- * @param arr
+ * Takes an array and modifies it.
+ *
+ * @param {Array} arr Array to be modifies.
+ * @returns {Array} Returns the modified array.
  */
 function spliceArray (arr) {
-  arr.splice(0, 1)
-  arr.splice(1, 1)
-  arr.splice(3, 1)
+  arr.splice(2, 1)
+  arr.splice(4, 1)
   return arr
 }

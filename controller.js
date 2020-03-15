@@ -29,8 +29,7 @@ controller.index = async (req, res) => {
     const issues = await request.json()
     const viewData = {
       issues: issues.map(issue => ({
-        author: issue.author.name,
-        username: issue.author.username,
+        author: `${issue.author.name}/${issue.author.username}`,
         title: issue.title,
         description: issue.description,
         url: issue.web_url,
@@ -77,18 +76,20 @@ controller.webhook = async (req, res, next) => {
  * @returns {object} IssueObject.
  */
 function createIssueObject (issue) {
+  console.log(issue)
   return {
+    id: issue.object_attributes.id,
     title: issue.object_attributes.title,
     author: `${issue.user.name}/${issue.user.username}`,
     description: issue.object_attributes.description,
     url: issue.object_attributes.url,
-    state: issue.object_attributes.state,
+    comments: 0,
     createdAt: moment(issue.object_attributes.created_at.replace(' +0100', ''))
       .format('YYYY-MM-DD HH:mm'),
     updatedAt: moment(issue.object_attributes.updated_at.replace(' +0100', ''))
       .format('YYYY-MM-DD HH:mm'),
-    eventType: issue.event_type,
-    id: issue.object_attributes.id
+    state: issue.object_attributes.state,
+    eventType: issue.event_type
   }
 }
 
