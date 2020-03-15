@@ -1,6 +1,6 @@
 const io = window.io('/')
 
-// Listening to event 'webhook-event', server will send data here from webhook.
+// Listening to event 'webhook-event', and send data to the right function.
 io.on('webhook-event', function (event) {
   if (event.eventType === 'issue') {
     if (event.state === 'closed') {
@@ -9,13 +9,13 @@ io.on('webhook-event', function (event) {
     }
     createIssueCard(event)
   } else if (event.eventType === 'note') {
-    // console.log(event)
   }
 })
 
-// document.querySelector('#issues').prepend(issue)
 /**
- * @param issueData
+ * Adds an issue to the list.
+ *
+ * @param {object} issueData Containing data about the issue.
  */
 function createIssueCard (issueData) {
   const issueDataArr = Object.values(issueData)
@@ -37,10 +37,12 @@ function createIssueCard (issueData) {
 }
 
 /**
- * @param issueData
+ * Removes a issue from the issue list.
+ *
+ * @param {object} issueData Containing data about the issue.
  */
 function removeIssueCard (issueData) {
-  console.log(document.querySelectorAll('#issues'))
+  document.querySelectorAll(`[data-issue-id="${issueData.id}"]`).forEach(el => el.remove())
 }
 
 /**
