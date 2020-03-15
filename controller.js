@@ -39,6 +39,10 @@ controller.index = async (req, res) => {
         updatedAt: moment(issue.updated_at).format('YYYY-MM-DD HH:mm')
       }))
     }
+    // Sort based on when updated
+    viewData.issues.sort((a, b) => {
+      return new Date(b.updatedAt) - new Date(a.updatedAt)
+    })
     res.render('home/index', { viewData })
   } catch (error) {
     console.error(error)
