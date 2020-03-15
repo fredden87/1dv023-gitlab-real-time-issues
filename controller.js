@@ -111,8 +111,7 @@ function createIssueObject (issue) {
  */
 function createNoteObject (note) {
   return {
-    author: note.user.name,
-    username: note.user.username,
+    author: `${note.user.name}/${note.user.username}`,
     description: note.object_attributes.description,
     url: note.object_attributes.url,
     id: note.issue.id,

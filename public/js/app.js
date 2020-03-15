@@ -4,15 +4,18 @@ const io = window.io('/')
 io.on('webhook-event', function (data) {
   if (data.eventType === 'issue') {
     if (data.state === 'closed') {
+      createNotification(data, 'Issue closed')
       removeIssueCard(data)
     } else if (data.currentDescription) {
+      createNotification(data, 'New issue description')
       updateIssueCardDescription(data)
     } else {
+      createNotification(data, 'New issue')
       createIssueCard(data)
     }
   } else if (data.eventType === 'note') {
+    createNotification(data, 'New comment')
     updateIssueCardComments(data)
-    // createNotification(data, 'New comment')
   }
 })
 
@@ -41,18 +44,19 @@ function createIssueCard (issueData) {
 }
 
 /**
- * @param noteData
- * @param event
+ * Creates an issuecard based on type of event.
+ *
+ * @param {object} noteData Data about the notification.
+ * @param {string} event Type of notification.
  */
 function createNotification (noteData, event) {
-  const template = document.cloneNode(true).querySelector('#issue-template').content
+  const template = document.cloneNode(true).querySelector('#note-template').content
   const html = template.querySelector('li, ul, div')
-  document.querySelector('#note').prepend(html)
-  const nodeArray = spliceArray(Array.from(document.querySelector('#issues')
-    .firstChild.querySelectorAll('*')))
-  nodeArray.forEach((elem, i) => {
-
-  })
+  document.querySelector('#notifications').prepend(html)
+  const nodeList = document.querySelector('#notifications').firstChild.querySelectorAll('*')
+  nodeList[1].appendChild(document.createTextNode(event))
+  nodeList[3].appendChild(document.createTextNode(noteData.author))
+  nodeList[4].appendChild(document.createTextNode(noteData.updatedAt))
 }
 
 /**
