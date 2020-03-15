@@ -1,17 +1,18 @@
 const io = window.io('/')
 
 // Listening to event 'webhook-event', and send data to the right function.
-io.on('webhook-event', function (event) {
-  if (event.eventType === 'issue') {
-    if (event.state === 'closed') {
-      removeIssueCard(event)
-    } else if (event.newDescription) {
-      updateIssueCardDescription(event)
+io.on('webhook-event', function (data) {
+  if (data.eventType === 'issue') {
+    if (data.state === 'closed') {
+      removeIssueCard(data)
+    } else if (data.currentDescription) {
+      updateIssueCardDescription(data)
     } else {
-      createIssueCard(event)
+      createIssueCard(data)
     }
-  } else if (event.eventType === 'note') {
-    updateIssueCardComments(event)
+  } else if (data.eventType === 'note') {
+    updateIssueCardComments(data)
+    // createNotification(data, 'New comment')
   }
 })
 
@@ -40,10 +41,18 @@ function createIssueCard (issueData) {
 }
 
 /**
- *
+ * @param noteData
+ * @param event
  */
-function createNotification () {
+function createNotification (noteData, event) {
+  const template = document.cloneNode(true).querySelector('#issue-template').content
+  const html = template.querySelector('li, ul, div')
+  document.querySelector('#note').prepend(html)
+  const nodeArray = spliceArray(Array.from(document.querySelector('#issues')
+    .firstChild.querySelectorAll('*')))
+  nodeArray.forEach((elem, i) => {
 
+  })
 }
 
 /**
