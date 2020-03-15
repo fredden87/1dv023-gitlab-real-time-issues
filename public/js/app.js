@@ -71,7 +71,10 @@ function updateIssueCardComments (issueData) {
 }
 
 /**
- * @param issueData
+ * Updates an issuecard with the new description, and when is was updated.
+ * And changes the issuecard head to green for 3 sec to show what card was updated.
+ *
+ * @param {object} issueData Containing update data about the issue.
  */
 function updateIssueCardDescription (issueData) {
   const issueCard = document.querySelector(`[data-issue-id="${issueData.id}"]`)
