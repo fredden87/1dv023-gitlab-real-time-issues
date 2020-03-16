@@ -80,7 +80,6 @@ controller.webhook = async (req, res, next) => {
  * @returns {object} IssueObject.
  */
 function createIssueObject (issue) {
-  console.log(issue.changes)
   if (!issue.changes.description) {
     issue.changes.description = {}
     issue.changes.description.previous = null

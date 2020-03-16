@@ -28,6 +28,7 @@ function createIssueCard (issueData) {
   const issueDataArr = Object.values(issueData)
   const template = document.cloneNode(true).querySelector('#issue-template').content
   const html = template.querySelector('li, ul, div')
+  const issueCardHead = html.querySelector('.issue-card-head')
   document.querySelector('#issues').prepend(html)
   const nodeArray = spliceArray(Array.from(document.querySelector('#issues')
     .firstChild.querySelectorAll('*')))
@@ -41,6 +42,7 @@ function createIssueCard (issueData) {
       elem.appendChild(document.createTextNode(issueDataArr[i]))
     }
   })
+  flashIssueHead(issueCardHead)
 }
 
 /**
@@ -83,10 +85,7 @@ function updateIssueCardComments (noteData) {
   const newCommentsNumber = Number(commentText.slice(-1)) + 1
   comments.textContent = `Comments: ${newCommentsNumber}`
   updated.textContent = `Updated: ${noteData.updatedAt}`
-  issueCardHead.classList.add('issue-card-head-updated')
-  setTimeout(() => {
-    issueCardHead.classList.remove('issue-card-head-updated')
-  }, 3000)
+  flashIssueHead(issueCardHead)
 }
 
 /**
@@ -102,9 +101,18 @@ function updateIssueCardDescription (issueData) {
   const updated = issueCard.querySelector('#updated-at')
   description.textContent = `Description: ${issueData.newDescription}`
   updated.textContent = `Updated: ${issueData.updatedAt}`
-  issueCardHead.classList.add('issue-card-head-updated')
+  flashIssueHead(issueCardHead)
+}
+
+/**
+ * Flashes the html element to notice the user something happend.
+ *
+ * @param {object} element Html element to flash.
+ */
+function flashIssueHead (element) {
+  element.classList.add('issue-card-head-updated')
   setTimeout(() => {
-    issueCardHead.classList.remove('issue-card-head-updated')
+    element.classList.remove('issue-card-head-updated')
   }, 3000)
 }
 
