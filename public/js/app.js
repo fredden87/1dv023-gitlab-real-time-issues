@@ -20,7 +20,7 @@ io.on('webhook-event', function (data) {
 })
 
 /**
- * Adds an issue to the list.
+ * Adds an issue to the issuelist.
  *
  * @param {object} issueData Containing data about the issue.
  */
