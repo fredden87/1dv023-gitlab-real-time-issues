@@ -12,7 +12,7 @@ const fetch = require('node-fetch')
 const moment = require('moment')
 require('dotenv').config()
 
-// GitLab api URL to open issues in assignment 3 project.
+// GitLab api URL to fetch issues in assignment 3 project.
 const url = `https://gitlab.lnu.se/api/v4/projects/2651/issues?state=opened&\
 private_token=${process.env.ACCESS_TOKEN}`
 
