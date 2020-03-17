@@ -35,6 +35,8 @@ Jag har säkrat upp min app genom att verifiera att datan som kommer från webho
 
 Applikationen går endats att nå via https vilket innebär att all data mellan client och server är krypterad med TLS. Servern har brandväggen påslagen och tillåter bara anslutningar på portarna 22/(SSH), 80(HTTP) och 443(HTTPS).
 
+Jag använder även miljövariabler till allt som är hemligt.
+
 ### Description of entities
 
 _ Describe the following parts, how you are using them, and what their purpose is in your solution:
